@@ -1,0 +1,39 @@
+create database smsd
+use smsd
+
+-----------------------Login Table----------------------------
+create table Login(User_id int IDENTITY(1,1) primary key ,User_Name varchar(16) not null,User_Value varchar(15) not null)
+
+insert into Login(User_Name,User_Value) values('00000-00000000-0','parent')
+insert into Login(User_Name,User_Value) values('000000','admin')
+insert into Login(User_Name,User_Value) values('0000-BSM-0000','student')
+
+
+-----------------------------------Student Table--------------------
+
+Create table Student(RegNo varchar(12) primary key,FName varchar(20) not null,
+LName varchar(20) not null,Class varchar(12) not null,
+Gender varchar(6) CONSTRAINT check_gender
+    CHECK (gender = 'Male' or gender='Female') ,DOB varchar(10) not null
+    ,age int CONSTRAINT check_age check  (age>1 or age <30) ,illness_Allergies varchar(50)
+     ,Father_CNIC varchar(16)  FOREIGN KEY REFERENCES parent(Father_CNIC),FilePath varchar(50),password varchar(30),
+     Class_id int  FOREIGN KEY REFERENCES Class(Class_id))
+    
+   
+    
+    
+    
+ -----------------------------------Parent Table--------------------
+
+Create table Parent(Father_CNIC varchar(16) primary key,Father_Name varchar(20) not null,Father_Designation varchar(30) not null,Father_Organization varchar(30),Father_E_mail varchar(30) not null,Father_Mobile varchar(12),Mother_Name varchar(20) not null,Mother_CNIC varchar(16) ,Mother_Designation varchar(30) ,Mother_Organization varchar(30),Mother_Email varchar(30) not null,Mother_Mobile varchar(12),password varchar(30),
+Relegion varchar(20) not null,
+    Present_address varchar(50) not null,Present_city varchar(20) not null,Present_postalCode int not null,Res_Phone varchar(11) not null,
+    Permanent_address varchar(50) not null,Permanent_city varchar(20) not null,Permanent_postalCode int not null,Emergency_Phone varchar(12) not null,Emergency_Mobile varchar(12) not null,
+    Emergency_Contact_Person varchar(20) not null)
+    
+   
+
+-----------------------------
+
+Create table Admin(adminId varchar(6) primary key,admin_Name varchar(20) not null, password varchar(30) )
+Create table Class(Class_Id int IDENTITY(1,1) primary key,Class_Name varchar(20) not null)
